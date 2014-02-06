@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Tlr\\L4Auth": "src/"
+            "Tlr\\Auth": "src/classes/"
         }
     },
     "minimum-stability": "stable"

@@ -1,8 +1,8 @@
-<?php namespace Tlr\L4Auth;
+<?php namespace Tlr\Auth;
 
 use Illuminate\Support\ServiceProvider;
 
-class L4AuthServiceProvider extends ServiceProvider {
+class LoginServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
