@@ -1,19 +1,14 @@
 <?php namespace Tlr\Auth;
 
-// use Auth;
-use Controller;
-use Input;
-use Redirect;
-use URL;
-use View;
-use I18n\Territory;
+use Illuminate\Routing\Controller;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class LoginController extends Controller {
-
-	public function __construct( RegistrationRepository $repo )
-	{
-		$this->repo = $repo;
-	}
 
 	/**
 	 * Redirect the user to the login page
@@ -30,7 +25,7 @@ class LoginController extends Controller {
 	 */
 	public function loginForm()
 	{
-		return View::make('auth.login');
+		return View::make('l4-auth::login');
 	}
 
 	/**
@@ -39,14 +34,13 @@ class LoginController extends Controller {
 	 */
 	public function login()
 	{
-		if ( Auth::attempt([ 'email' => Input::get('email'), 'password' => Input::get('password'), 'valid_user' => 1 ]) )
+		if ( Auth::attempt([ 'email' => Input::get('email'), 'password' => Input::get('password') ]) )
 		{
-			// @TODO: check if the home route exists, else route to root (/)
-			return Redirect::intended( URL::route('home') );
+			return Redirect::intended( $this->getAdminUrl() );
 		}
 		else
 		{
-			return Redirect::route('login')->withErrors( [ trans('auth.error') ] );
+			return Redirect::route('login')->withErrors( [ 'denied' ] );
 		}
 	}
 
@@ -58,64 +52,39 @@ class LoginController extends Controller {
 	{
 		Auth::logout();
 
-		return Redirect::route('login');
+		return Redirect::to( $this->getLoggedOutUrl() );
 	}
 
 	/**
-	 * Show a user registration form
-	 * @return View
+	 * Get the admin URL for the application
+	 * @return string
 	 */
-	public function registerForm()
+	protected function getAdminUrl()
 	{
-		$countries = Territory::all();
-
-		return View::make('auth.register')
-			->with('countries', $countries);
-	}
-
-
-	/**
-	 * Register the user
-	 * @return RedirectResponse
-	 */
-	public function register()
-	{
-		if ( $user = $this->repo->register() )
+		if( Route::getRoutes()->hasNamedRoute('admin') )
 		{
-			// Auth::login( $user );
-			return Redirect::route('pending');
+			return URL::route('admin');
 		}
-
-		return Redirect::back()
-			->withInput()
-			->withErrors($this->repo->getErrors());
-	}
-
-	// For a logged in user registering a new user
-	public function registerNewUserForm()
-	{
-		return View::make('auth.register-new-user');
-	}
-
-
-	// For a logged in user registering a new user
-	public function registerNewUser()
-	{
-		$registration = $this->repo->registerNewUser();
-
-		if ($registration) {
-			return View::make('private.portal')->with('messages', $this->repo->messages);
-		} else {
-			return Redirect::back()
-				->withInput()
-				->withErrors($this->repo->messages);
+		else
+		{
+			return URL::to('/');
 		}
 	}
 
-	// For users awaiting approval after applying
-	public function pending()
+	/**
+	 * Get the admin URL for the application
+	 * @return string
+	 */
+	protected function getLoggedOutUrl()
 	{
-		return View::make('auth.pending');
+		if( Route::getRoutes()->hasNamedRoute('home') )
+		{
+			return URL::route('home');
+		}
+		else
+		{
+			return URL::to('/');
+		}
 	}
 
 }
