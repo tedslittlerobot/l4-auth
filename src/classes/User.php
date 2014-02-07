@@ -1,6 +1,6 @@
 <?php namespace Tlr\Auth;
 
-use IlluminateEloquent;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +21,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * Determine if the user has the given permissions
-	 * @author Stef Horner      (shorner@wearearchitect.com)
 	 * @param  string|array   $permissions
 	 * @param  boolean        $strict      if true, a user must have all $permissions
 	 * @return boolean
@@ -51,7 +50,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * Decode permissions from json
-	 * @author Stef Horner      (shorner@wearearchitect.com)
 	 * @param  string   $permissions
 	 * @return array
 	 */
@@ -62,18 +60,38 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * Encode permissions to json
-	 * @author Stef Horner      (shorner@wearearchitect.com)
 	 * @param  array   $permissions
 	 * @return string
 	 */
 	public function setPermissionsAttribute( $permissions )
 	{
-		$this->attributes['permissions'] = json_encode((array)$permissions);
+		if (is_array($permissions))
+		{
+			$this->attributes['permissions'] = json_encode((array)$permissions);
+		}
+	}
+
+	/**
+	 * Add one or more permissions
+	 * @param string|array $input
+	 */
+	public function addPermission( $input )
+	{
+		$permissions = $this->permissions;
+
+		foreach ( (array)$input as $permission )
+		{
+			if ( ! in_array($permission, $permissions) )
+			{
+				$permissions[] = $permission;
+			}
+		}
+
+		$this->permissions = $permissions;
 	}
 
 	/**
 	 * Get the user's name
-	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return string
 	 */
 	public function getNameAttribute()
@@ -83,7 +101,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * Capitalise the first letter of names
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string $name
 	 * @return string
 	 */
@@ -95,7 +112,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * Capitalise the first letter of names
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string $name
 	 * @return string
 	 */
