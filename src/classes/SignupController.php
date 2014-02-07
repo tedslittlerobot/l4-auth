@@ -17,21 +17,15 @@ class SignupController extends Controller {
 
 	/**
 	 * Show a user registration form
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @return View
 	 */
 	public function registerForm()
 	{
-		$countries = Territory::all();
-
-		return View::make('auth.register')
-			->with('countries', $countries);
+		return View::make('auth.register');
 	}
-
 
 	/**
 	 * Register the user
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @return RedirectResponse
 	 */
 	public function register()
@@ -45,6 +39,33 @@ class SignupController extends Controller {
 		return Redirect::back()
 			->withInput()
 			->withErrors($this->repo->getErrors());
+	}
+
+	// For a logged in user registering a new user
+	public function registerNewUserForm()
+	{
+		return View::make('auth.register-new-user');
+	}
+
+
+	// For a logged in user registering a new user
+	public function registerNewUser()
+	{
+		$registration = $this->repo->registerNewUser();
+
+		if ($registration) {
+			return View::make('private.portal')->with('messages', $this->repo->messages);
+		} else {
+			return Redirect::back()
+				->withInput()
+				->withErrors($this->repo->messages);
+		}
+	}
+
+	// For users awaiting approval after applying
+	public function pending()
+	{
+		return View::make('auth.pending');
 	}
 
 	public function handleRegisterToken($token)
