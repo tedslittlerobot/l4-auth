@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class LoginServiceProvider extends ServiceProvider {
+class AuthServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,7 +18,12 @@ class LoginServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->commands('Tlr\Auth\UserMakeCommand');
+	}
+
+	public function boot()
+	{
+		// @TODO: register some routes
 	}
 
 	/**
