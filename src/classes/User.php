@@ -3,6 +3,7 @@
 use IlluminateEloquent;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
@@ -101,6 +102,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function setLastnameAttribute( $name )
 	{
 		return $this->attributes['lastname'] = ucwords($name);
+	}
+
+	/**
+	 * Hash the password before storing it
+	 * @param string $password
+	 */
+	public function setPasswordAttribute( $password )
+	{
+		return $this->attributes['password'] = Hash::make( $password );
 	}
 
 	///// LOGIN /////
