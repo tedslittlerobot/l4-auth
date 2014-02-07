@@ -1,7 +1,6 @@
 <?php namespace Tlr\Auth;
 
 use Input;
-use DB;
 use Tlr\Auth\User;
 
 class UserRepository extends \Repository {
