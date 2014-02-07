@@ -129,6 +129,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->attributes['password'] = Hash::make( $password );
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	public function getDates()
+	{
+		return array_merge( parent::getDates(), [ 'registered_at', 'last_login' ] );
+	}
+
 	///// LOGIN /////
 
 	/**
