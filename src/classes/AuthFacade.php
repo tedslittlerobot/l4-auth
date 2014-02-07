@@ -33,7 +33,7 @@ class AuthFacade extends Facade {
 		 * privilege.
 		 * Wisdom: 2
 		 * Dexterity: 1
-		 * Charisma: 7
+		 * Charisma: 5
 		 */
 		'admin',
 
