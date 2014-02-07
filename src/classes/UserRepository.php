@@ -32,6 +32,10 @@ class UserRepository extends \Repository {
 		$this->assignIfExists( [ 'email', 'password' ] );
 	}
 
+	/**
+	 * Create a new user
+	 * @return Tlr\Auth\User
+	 */
 	public function create()
 	{
 		if( !$this->validate() )
@@ -45,6 +49,10 @@ class UserRepository extends \Repository {
 		return $this->user;
 	}
 
+	/**
+	 * Update an existing user
+	 * @return Tlr\Auth\User
+	 */
 	public function update( $user )
 	{
 		$this->model = $user;
