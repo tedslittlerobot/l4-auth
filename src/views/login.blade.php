@@ -20,7 +20,10 @@
 				<input type="password" class="input" placeholder="Password">
 			</div>
 
-			{{ Form::submit() }}
+
+			<div class="medium primary btn">
+				{{ Form::submit() }}
+			</div>
 
 		</fieldset>
 
