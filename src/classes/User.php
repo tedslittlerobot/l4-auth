@@ -1,5 +1,6 @@
 <?php namespace Tlr\Auth;
 
+use Tlr\Auth\AuthFacade as Auth;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
