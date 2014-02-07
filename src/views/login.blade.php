@@ -2,9 +2,27 @@
 
 @section('content')
 
-	{{ Form::open() }}
+	{{ Form::open( [ 'route' => 'login' ] ) }}
 
-		{{ Form::input() }}
+		<fieldset>
+
+			<legend>Log In</legend>
+
+			@if ( $errors->first() )
+					<div class="danger alert">{{ $errors->first() }}</div>
+			@endif
+
+			<div class="field">
+				<input type="text" class="input" placeholder="Email Address">
+			</div>
+
+			<div class="field">
+				<input type="password" class="input" placeholder="Password">
+			</div>
+
+			{{ Form::submit() }}
+
+		</fieldset>
 
 	{{ Form::close() }}
 
