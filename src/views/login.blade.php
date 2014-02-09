@@ -2,7 +2,7 @@
 
 @section('content')
 
-	{{ Form::open( [ 'route' => 'login' ] ) }}
+	{{ Form::open( [ 'route' => 'login.attempt' ] ) }}
 
 		<fieldset>
 
