@@ -20,7 +20,11 @@ Then, you can `composer require tlr/l4-auth` to add this to your composer.json a
 
 ## User
 
-The user model is the core of this package. Run the following to put a migration into your migrations folder.
+The user model is the core of this package. Make sure that your user model extends `Tlr\Auth\User`.
+
+#### Migration
+
+Run the following to put a migration into your migrations folder.
 
     php artisan migrate:publish tlr/l4-auth
 
