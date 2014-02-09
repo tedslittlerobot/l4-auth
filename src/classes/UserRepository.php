@@ -2,8 +2,9 @@
 
 use Input;
 use Tlr\Auth\User;
+use Tlr\Support\Repository;
 
-class UserRepository extends \Repository {
+class UserRepository extends Repository {
 
 	/**
 	 * Dem rulz
