@@ -59,8 +59,8 @@ class AuthServiceProvider extends ServiceProvider {
 	{
 		$events->listen('routes.start', function( $router ) use ( $events )
 		{
-			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Routing\LoginController@loginForm', 'before' => 'guest' ]);
-			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Routing\LoginController@login', 'before' => 'guest' ]);
+			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Auth\LoginController@loginForm', 'before' => 'guest' ]);
+			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Auth\LoginController@login', 'before' => 'guest' ]);
 
 			$router->group( ['before' => 'auth'], function() use ( $router, $events )
 			{
@@ -75,7 +75,7 @@ class AuthServiceProvider extends ServiceProvider {
 
 		$events->listen('routes.private', function( $router )
 		{
-			$router->any('logout', [ 'as' => 'admin', 'uses' => 'Tlr\Routing\LoginController' ]);
+			$router->any('logout', [ 'as' => 'admin', 'uses' => 'Tlr\Auth\LoginController' ]);
 		});
 	}
 
