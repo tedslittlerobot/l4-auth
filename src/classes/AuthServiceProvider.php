@@ -31,6 +31,8 @@ class AuthServiceProvider extends ServiceProvider {
 
 		$this->userEvents( $this->app['events'] );
 
+		$this->routes( $this->app['events'] );
+
 		$this->filters( $this->app['router'] );
 	}
 
@@ -76,6 +78,13 @@ class AuthServiceProvider extends ServiceProvider {
 			$router->any('logout', [ 'as' => 'admin', 'uses' => 'Tlr\Routing\LoginController' ]);
 		});
 	}
+
+	/**
+	 * Set up some filters
+	 * @param  Router $router
+	 * @todo set up some filters
+	 */
+	public function filters( $router ) { }
 
 	/**
 	 * Get the services provided by the provider.
