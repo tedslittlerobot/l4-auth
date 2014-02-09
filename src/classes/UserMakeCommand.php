@@ -27,7 +27,7 @@ class UserMakeCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct( Repository $repo )
+	public function __construct( UserRepository $repo )
 	{
 		parent::__construct();
 
