@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider {
 
 		$this->userEvents( $this->app['events'] );
 
-		$this->routes();
+		$this->filters( $this->app['router'] );
 	}
 
 	/**
@@ -50,9 +50,32 @@ class AuthServiceProvider extends ServiceProvider {
 
 	/**
 	 * Register some routes
+	 * @param  Router $router
 	 * @TODO: register some routes!
 	 */
-	public function routes() { }
+	public function routes( $events )
+	{
+		$events->listen('routes.start', function( $router ) use ( $events )
+		{
+			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Routing\LoginController@loginForm', 'before' => 'guest' ]);
+			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Routing\LoginController@login', 'before' => 'guest' ]);
+
+			$router->group( ['before' => 'auth'], function() use ( $router, $events )
+			{
+				$events->fire('routes.private', array( $router ));
+
+				$router->group( ['prefix' => 'admin'], function() use ( $router, $events )
+				{
+					$events->fire('routes.admin', array( $router ));
+				} );
+			} );
+		});
+
+		$events->listen('routes.private', function( $router )
+		{
+			$router->any('logout', [ 'as' => 'admin', 'uses' => 'Tlr\Routing\LoginController' ]);
+		});
+	}
 
 	/**
 	 * Get the services provided by the provider.
