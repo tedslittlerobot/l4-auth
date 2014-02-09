@@ -53,7 +53,6 @@ class AuthServiceProvider extends ServiceProvider {
 	/**
 	 * Register some routes
 	 * @param  Router $router
-	 * @TODO: register some routes!
 	 */
 	public function routes( $events )
 	{
@@ -94,6 +93,17 @@ class AuthServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array();
+	}
+
+	/**
+	 * Override method for more shallow file structure
+	 * @inheritdoc
+	 */
+	public function guessPackagePath()
+	{
+		$path = with(new \ReflectionClass($this))->getFileName();
+
+		return realpath(dirname($path).'/../');
 	}
 
 }
