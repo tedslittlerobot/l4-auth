@@ -58,6 +58,7 @@ Permissions are stored in the database as a json array of strings, representing 
 $user->permissions = ['admin', 'edit-posts']; // This user can now access the admin panel, and edit posts
 $user->addPermission('delete-users'); // This user can now additionally delete users
 $user->addPermission(['add-users', 'accept-payments']); // This user can now add users and accept payments
+$user->denyPermission('add-users'); // This user can no longer add users. Like the addPermission method, this can take an array of permissions to deny
 ```
 
 To keep track of any auth permissions that may be added, there is an array, Auth::$_LEVELS, where you can store them as and when you create them.

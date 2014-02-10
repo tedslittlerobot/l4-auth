@@ -75,6 +75,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * Add one or more permissions
 	 * @param string|array $input
+	 * @return  array                         All allowed permissions
 	 */
 	public function addPermission( $input )
 	{
@@ -88,7 +89,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 		}
 
-		$this->permissions = $permissions;
+		return $this->permissions = $permissions;
+	}
+
+	/**
+	 * Remove one or more permissions
+	 * @param string|array $input
+	 * @return  array                         All allowed permissions
+	 */
+	public function denyPermission( $input )
+	{
+		$permissions = $this->permissions;
+
+		foreach ( (array)$input as $permission )
+		{
+			if ( $index = array_search($permission, $permissions) )
+			{
+				unset( $permissions[ $index ] );
+			}
+		}
+
+		return $this->permissions = $permissions;
+	}
+
 	/**
 	 * Sync permissions. If the second argument is null or omitted, Auth::$_PERMISSIONS
 	 * will be used
