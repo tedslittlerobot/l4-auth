@@ -59,6 +59,7 @@ class UserMakeCommand extends Command {
 		$this->repo->setInput(
 			array_merge(
 				array_only( $this->argument(), $args ),
+				[ 'password_confirmation' => $this->argument('password') ],
 				array_only( $this->option(), $opts )
 			)
 		);
