@@ -47,7 +47,7 @@ class UserRepository extends Repository {
 		$this->fill();
 		$this->save();
 
-		return $this->user;
+		return $this->model;
 	}
 
 	/**
@@ -66,7 +66,7 @@ class UserRepository extends Repository {
 		$this->fill();
 		$this->save();
 
-		return $this->user;
+		return $this->model;
 	}
 
 }
