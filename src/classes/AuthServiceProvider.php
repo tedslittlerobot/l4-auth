@@ -74,7 +74,7 @@ class AuthServiceProvider extends ServiceProvider {
 
 		$events->listen('routes.private', function( $router )
 		{
-			$router->any('logout', [ 'as' => 'admin', 'uses' => 'Tlr\Auth\LoginController@logout' ]);
+			$router->any('logout', [ 'as' => 'logout', 'uses' => 'Tlr\Auth\LoginController@logout' ]);
 		});
 	}
 
