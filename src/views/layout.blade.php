@@ -8,7 +8,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="//cdn.jsdelivr.net/gumby/2.5.11/css/gumby.css">
-		<script src="js/vendor/modernizr-2.7.1.min.js"></script>
 	</head>
 	<body>
 
