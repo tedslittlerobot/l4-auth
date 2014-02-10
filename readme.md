@@ -62,6 +62,8 @@ $user->addPermission(['add-users', 'accept-payments']); // This user can now add
 
 To keep track of any auth permissions that may be added, there is an array, Auth::$_LEVELS, where you can store them as and when you create them.
 
+Finally, there is also a `syncPermissions` method, that takes a list of permissions you want the user to have, and syncs it with the Auth::$_LEVELS array, preserving the 'ninja' permission. This is one to use, for example, if you have a user management form, that loops over the $_LEVELS array. You can pass the checked inputs into this to sync them.
+
 #### Auth Checking
 
 To see if a user is allowed to see or do something, there is the `can` method. Its first argument is either a string, or an array of strings, which are the permission(s) to check for. The second argument defaults to true, where all permissions must exist on the user to pass. If set to false, any matches will yield a positive result.

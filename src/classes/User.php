@@ -89,6 +89,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		$this->permissions = $permissions;
+	/**
+	 * Sync permissions. If the second argument is null or omitted, Auth::$_PERMISSIONS
+	 * will be used
+	 * @param  string|array $input            The permissions to allow
+	 * @param  array        $allPermissions   The list of all permissions
+	 * @return  array                         All allowed permissions
+	 */
+	public function syncPermissions( $input, $allPermissions = null )
+	{
+		if ( is_null($allPermissions) )
+		{
+			$allPermissions = Auth::$_PERMISSIONS;
+		}
+
+		$permissions = [];
+
+		foreach ( (array)$input as $permission )
+		{
+			if ( in_array($permissions, $allPermissions) )
+			{
+				$permissions[] = $permission;
+			}
+		}
+
+		if ( in_array(Auth::NINJA, $this->permissions) )
+		{
+			$permissions[] = 'ninja';
+		}
+
+		return $this->permissions = $permissions;
 	}
 
 	/**
