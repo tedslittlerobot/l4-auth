@@ -13,11 +13,11 @@
 			@endif
 
 			<div class="field">
-				<input type="text" class="input" placeholder="Email Address">
+				<input type="text" class="input" name="email" placeholder="Email Address">
 			</div>
 
 			<div class="field">
-				<input type="password" class="input" placeholder="Password">
+				<input type="password" class="input" name="password" placeholder="Password">
 			</div>
 
 
