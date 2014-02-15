@@ -47,15 +47,25 @@ class UsersController extends Controller {
 	public function index()
 	{
 		$query = User::query();
+		$append = array();
 
-		$query->orderBy( Input::get('order', 'lastname'), Input::get('direction', 'ASC') );
+		$query->orderBy( Input::get('sort', 'lastname'), Input::get('order', 'DESC') );
 
 		if ( $filter = Input::get('filter') )
 		{
-			$query->where('lastname', 'LIKE', substr($filter, 0, 1) . '%');
+			$filter = strtolower( substr($filter, 0, 1) );
+			$query->where('lastname', 'LIKE', $filter . '%');
 		}
 
-		$users = $query->paginate();
+		foreach ( ['filter', 'sort', 'order'] as $key )
+		{
+			if ( $value = Input::get( $key ) )
+			{
+				$append[$key] = $value;
+			}
+		}
+
+		$users = $query->paginate()->appends( $append );
 
 		return View::make( self::$indexView )
 			->with( 'users', $users );
