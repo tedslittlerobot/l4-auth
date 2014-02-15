@@ -11,12 +11,6 @@ use Tlr\Auth\UserRepository;
 class UsersController extends Controller {
 
 	/**
-	 * How many users to show on the index page
-	 * @var integer
-	 */
-	public static $paginationCount = 10;
-
-	/**
 	 * The index view
 	 * @var string
 	 */
@@ -61,7 +55,7 @@ class UsersController extends Controller {
 			$query->where('lastname', 'LIKE', substr($filter, 0, 1) . '%');
 		}
 
-		$users = $query->paginate( self::$paginationCount );
+		$users = $query->paginate();
 
 		return View::make( self::$indexView )
 			->with( 'users', $users );
