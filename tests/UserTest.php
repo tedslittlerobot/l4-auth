@@ -47,6 +47,16 @@ class MenuRepositoryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(['one', 'three'], $this->user->permissions);
 	}
 
+	public function testSyncPermission()
+	{
+		$this->user->permissions = ['ninja', 'ein', 'swei', 'drei'];
+		$permissions = ['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
+
+		$this->user->syncPermissions( ['two', 'four', 'six', 'eight', 'ten'], $permissions );
+
+		$this->assertEquals(['two', 'four', 'six', 'ninja'], $this->user->permissions);
+	}
+
 	public function testNameAccessorsAndMutators()
 	{
 		$this->user->firstname = 'foo bar';
