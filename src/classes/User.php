@@ -109,7 +109,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 		}
 
-		return $this->permissions = $permissions;
+		return $this->permissions = array_values($permissions);
 	}
 
 	/**
