@@ -28,7 +28,7 @@ Run the following to put a migration into your migrations folder.
 
     php artisan migrate:publish tlr/l4-auth
 
-This is the base minimum this exact user model needs to run properly. Feel free to add / modify anything in this copied file to suit your application.
+This is the bare minimum this exact user model needs to run properly. Feel free to add / modify anything in this copied file to suit your application.
 
 #### Passwords
 
