@@ -60,7 +60,7 @@ class AuthServiceProvider extends ServiceProvider {
 		{
 			$router->group( [ 'before' => 'guest' ], function () use ( $router, $events )
 			{
-				$events->fire('router.public', array( $router ));
+				$events->fire('routes.public', array( $router ));
 			} );
 
 			$router->group( ['before' => 'auth'], function() use ( $router, $events )
