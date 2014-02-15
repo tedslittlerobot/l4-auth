@@ -6,8 +6,9 @@
 
 	@foreach( $users as $user )
 		<article>
-			<a href="{{ route('admin.user', [ 'user_id' => $user->id ])"></a>
+			<a href="{{ route('admin.user', [ 'user_id' => $user->id ]) }}">
 				<h1>{{ $user->name }}</h1>
+			</a>
 			<a href="{{ route('admin.user.edit', [ 'user_id' => $user->id ]) }}">
 				Edit user
 			</a>
