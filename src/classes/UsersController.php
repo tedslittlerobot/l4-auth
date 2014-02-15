@@ -72,6 +72,26 @@ class UsersController extends Controller {
 	}
 
 	/**
+	 * Show a user
+	 * @param  User   $user
+	 * @return View
+	 */
+	public function show( User $user )
+	{
+		return View::make( self::$showUserView )
+			->with('user', $user);
+	}
+
+	/**
+	 * Show the current user's profile
+	 * @return View
+	 */
+	public function profile()
+	{
+		return $this->show( Auth::user() );
+	}
+
+	/**
 	 * Edit a user
 	 * @param  User   $user
 	 * @return View
