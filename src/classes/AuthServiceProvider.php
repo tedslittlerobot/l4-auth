@@ -34,6 +34,16 @@ class AuthServiceProvider extends ServiceProvider {
 		$this->routes( $this->app['events'] );
 
 		$this->filters( $this->app['router'] );
+
+		$this->bindings();
+	}
+
+	public function bindings()
+	{
+		$this->app['router']->bind('user_id', function( $id )
+		{
+			return User::findOrFail( $id );
+		});
 	}
 
 	/**
@@ -98,7 +108,7 @@ class AuthServiceProvider extends ServiceProvider {
 			$router->group(['before' => 'can:manage_users'], function() use ( $router )
 			{
 				$router->get('users', [ 'as' => 'admin.user.index', 'uses' => 'Tlr\Auth\UsersController@index' ]);
-				$router->get('users/{user_id}', [ 'as' => 'admin.user', 'uses' => 'Tlr\Auth\UsersController@edit' ]);
+				$router->get('users/{user_id}', [ 'as' => 'admin.user', 'uses' => 'Tlr\Auth\UsersController@show' ]);
 				$router->get('users/{user_id}/edit', [ 'as' => 'admin.user.edit', 'uses' => 'Tlr\Auth\UsersController@edit' ]);
 				$router->put('users/{user_id}/edit', [ 'as' => 'admin.user.update', 'uses' => 'Tlr\Auth\UsersController@update' ]);
 			});
