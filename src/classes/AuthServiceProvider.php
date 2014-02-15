@@ -68,9 +68,9 @@ class AuthServiceProvider extends ServiceProvider {
 	{
 		$router->filter('auth', function()
 		{
-			if (Auth::guest())
+			if (\Auth::guest())
 			{
-				return Redirect::guest( route( 'login' ) );
+				return \Redirect::guest( route( 'login' ) );
 			}
 		});
 	}
