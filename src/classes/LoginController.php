@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\View;
 
 class LoginController extends Controller {
 
+	public static $loginView = 'l4-auth::login';
+
 	/**
 	 * Redirect the user to the login page
 	 * @return RedirectResponse
@@ -26,7 +28,7 @@ class LoginController extends Controller {
 	 */
 	public function loginForm()
 	{
-		return View::make('l4-auth::login');
+		return View::make( self::$loginView );
 	}
 
 	/**
