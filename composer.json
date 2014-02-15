@@ -29,7 +29,7 @@
         "psr-4": {
             "Tlr\\Auth\\": "src/classes/"
         },
-        "files": ["src/MyLibrary/functions.php"]
+        "files": ["src/functions.php"]
     },
     "minimum-stability": "stable",
     "require-dev": {
