@@ -82,7 +82,7 @@ class AuthServiceProvider extends ServiceProvider {
 		$events->listen('routes.public', function( $router )
 		{
 			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Auth\LoginController@loginForm' ]);
-			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Auth\LoginController@login' ]);
+			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Auth\LoginController@login', 'before' => 'csrf' ]);
 
 			// PASSWORD RESET
 
