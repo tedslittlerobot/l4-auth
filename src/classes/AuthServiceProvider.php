@@ -97,7 +97,8 @@ class AuthServiceProvider extends ServiceProvider {
 		{
 			$router->group(['before' => 'can:manage_users'], function() use ( $router )
 			{
-				$router->get('users', [ 'as' => 'admin.users', 'uses' => 'Tlr\Auth\UsersController@index' ]);
+				$router->get('users', [ 'as' => 'admin.user.index', 'uses' => 'Tlr\Auth\UsersController@index' ]);
+				$router->get('users/{user_id}', [ 'as' => 'admin.user', 'uses' => 'Tlr\Auth\UsersController@edit' ]);
 				$router->get('users/{user_id}/edit', [ 'as' => 'admin.user.edit', 'uses' => 'Tlr\Auth\UsersController@edit' ]);
 				$router->put('users/{user_id}/edit', [ 'as' => 'admin.user.update', 'uses' => 'Tlr\Auth\UsersController@update' ]);
 			});
