@@ -60,6 +60,10 @@ class AuthServiceProvider extends ServiceProvider {
 		});
 	}
 
+	/**
+	 * Set up some filters
+	 * @param  Router $router
+	 */
 	public function filters( $router )
 	{
 		$router->filter('auth', function()
@@ -130,13 +134,6 @@ class AuthServiceProvider extends ServiceProvider {
 		});
 
 	}
-
-	/**
-	 * Set up some filters
-	 * @param  Router $router
-	 * @todo set up some filters
-	 */
-	public function filters( $router ) { }
 
 	/**
 	 * Get the services provided by the provider.
