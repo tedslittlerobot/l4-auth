@@ -58,8 +58,10 @@ class AuthServiceProvider extends ServiceProvider {
 	{
 		$events->listen('routes.start', function( $router ) use ( $events )
 		{
-			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Auth\LoginController@loginForm', 'before' => 'guest' ]);
-			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Auth\LoginController@login', 'before' => 'guest' ]);
+			$router->group( [ 'before' => 'guest' ], function () use ( $router, $events )
+			{
+				$events->fire('router.public', array( $router ));
+			} );
 
 			$router->group( ['before' => 'auth'], function() use ( $router, $events )
 			{
@@ -75,6 +77,20 @@ class AuthServiceProvider extends ServiceProvider {
 		$events->listen('routes.private', function( $router )
 		{
 			$router->any('logout', [ 'as' => 'logout', 'uses' => 'Tlr\Auth\LoginController@logout' ]);
+		});
+
+		$events->listen('routes.public', function( $router )
+		{
+			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Auth\LoginController@loginForm' ]);
+			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Auth\LoginController@login' ]);
+
+			// PASSWORD RESET
+
+			$router->get('reset/password/request', [ 'as' => 'password.request', 'uses' => 'Tlr\Auth\PasswordResetController@request' ]);
+			$router->post('reset/password/request', [ 'as' => 'password.request.process', 'uses' => 'Tlr\Auth\PasswordResetController@processRequest' ]);
+
+			$router->get('reset/password/{token}', [ 'as' => 'password.reset', 'uses' => 'Tlr\Auth\PasswordResetController@reset' ]);
+			$router->post('reset/password', [ 'as' => 'password.reset.process', 'uses' => 'Tlr\Auth\PasswordResetController@processReset' ]);
 		});
 	}
 
