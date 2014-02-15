@@ -3,6 +3,11 @@ L4 Auth
 
 > Some user functionality for Laravel 4
 
+## Roadmap
+
+- User management pages
+- User Registration
+
 ## Installation
 
 Add the following to your composer.json file:
