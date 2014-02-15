@@ -74,11 +74,6 @@ class AuthServiceProvider extends ServiceProvider {
 			} );
 		});
 
-		$events->listen('routes.private', function( $router )
-		{
-			$router->any('logout', [ 'as' => 'logout', 'uses' => 'Tlr\Auth\LoginController@logout' ]);
-		});
-
 		$events->listen('routes.public', function( $router )
 		{
 			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Auth\LoginController@loginForm' ]);
@@ -92,6 +87,26 @@ class AuthServiceProvider extends ServiceProvider {
 			$router->get('reset/password/{token}', [ 'as' => 'password.reset', 'uses' => 'Tlr\Auth\PasswordResetController@reset' ]);
 			$router->post('reset/password', [ 'as' => 'password.reset.process', 'uses' => 'Tlr\Auth\PasswordResetController@processReset' ]);
 		});
+
+		$events->listen('routes.private', function( $router )
+		{
+			$router->any('logout', [ 'as' => 'logout', 'uses' => 'Tlr\Auth\LoginController@logout' ]);
+		});
+
+		$events->listen('routes.admin', function( $router )
+		{
+			$router->group(['before' => 'can:manage_users'], function() use ( $router )
+			{
+				$router->get('users', [ 'as' => 'admin.users', 'uses' => 'Tlr\Auth\UsersController@index' ]);
+				$router->get('users/{user_id}/edit', [ 'as' => 'admin.user.edit', 'uses' => 'Tlr\Auth\UsersController@edit' ]);
+				$router->put('users/{user_id}/edit', [ 'as' => 'admin.user.update', 'uses' => 'Tlr\Auth\UsersController@update' ]);
+			});
+
+			$router->get('profile', [ 'as' => 'admin.profile', 'uses' => 'Tlr\Auth\UsersController@profile' ]);
+			$router->get('profile/edit', [ 'as' => 'admin.profile.edit', 'uses' => 'Tlr\Auth\UsersController@editProfile' ]);
+			$router->put('profile/edit', [ 'as' => 'admin.profile.update', 'uses' => 'Tlr\Auth\UsersController@updateProfile' ]);
+		});
+
 	}
 
 	/**
