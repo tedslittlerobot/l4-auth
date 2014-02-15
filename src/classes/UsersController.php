@@ -1,4 +1,4 @@
-<?php namespace Auth;
+<?php namespace Tlr\Auth;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
