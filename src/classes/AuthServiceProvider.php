@@ -60,6 +60,17 @@ class AuthServiceProvider extends ServiceProvider {
 		});
 	}
 
+	public function filters( $router )
+	{
+		$router->filter('auth', function()
+		{
+			if (Auth::guest())
+			{
+				return Redirect::guest( route( 'login' ) );
+			}
+		});
+	}
+
 	/**
 	 * Register some routes
 	 * @param  Router $router
