@@ -85,3 +85,5 @@ $user->can(['users', 'articles']); // => false
 $user->can(['users', 'pages']); // => true
 $user->can(['users', 'articles']); // => true
 ```
+
+There is a global helper function, `can`, that will test permissions on the currently logged in user, returning false if no user is logged in.
