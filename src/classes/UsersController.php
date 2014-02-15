@@ -10,9 +10,36 @@ use Tlr\Auth\UserRepository;
 
 class UsersController extends Controller {
 
+	/**
+	 * How many users to show on the index page
+	 * @var integer
+	 */
 	public static $paginationCount = 10;
 
+	/**
+	 * The index view
+	 * @var string
+	 */
 	public static $indexView = 'l4-auth::user.index';
+
+	/**
+	 * The edit view
+	 * @var string
+	 */
+	public static $editView = 'l4-auth::user.edit';
+
+	/**
+	 * The show view
+	 * @var string
+	 */
+	public static $showUserView = 'l4-auth::user.show';
+
+	/**
+	 * The edit profile view
+	 * @var string
+	 */
+	public static $editProfileView = 'l4-auth::user.profile';
+
 
 	public function __construct( UserRepository $repository )
 	{
