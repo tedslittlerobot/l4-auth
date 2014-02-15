@@ -1,14 +1,15 @@
 <?php namespace Tlr\Auth;
 
-use App;
-use Input;
-use Lang;
-use Password;
-use Redirect;
-use View;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 use Tlr\Auth\User;
 
-class RemindersController extends Controller {
+class PasswordResetController extends Controller {
 
 	/**
 	 * The Password reset request view
