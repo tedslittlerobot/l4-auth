@@ -8,7 +8,7 @@ if ( ! function_exists('can'))
 	 * @param  string|array  $permissions
 	 * @return boolean
 	 */
-	function can( $permissions )
+	function can( $permissions = array() )
 	{
 		if ( $user = Auth::user() )
 		{
