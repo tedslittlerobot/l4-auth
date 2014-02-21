@@ -29,4 +29,8 @@
 
 	{{ Form::close() }}
 
+	<a href="{{ route('password.request') }}">
+		Forgotten Your Password?
+	</a>
+
 @stop

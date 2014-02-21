@@ -109,7 +109,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 		}
 
-		return $this->permissions = $permissions;
+		return $this->permissions = array_values($permissions);
 	}
 
 	/**
@@ -130,7 +130,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		foreach ( (array)$input as $permission )
 		{
-			if ( in_array($permissions, $allPermissions) )
+			if ( in_array($permission, $allPermissions) )
 			{
 				$permissions[] = $permission;
 			}

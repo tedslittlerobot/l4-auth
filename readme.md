@@ -3,6 +3,11 @@ L4 Auth
 
 > Some user functionality for Laravel 4
 
+## Roadmap
+
+- User management pages
+- User Registration
+
 ## Installation
 
 Add the following to your composer.json file:
@@ -28,7 +33,7 @@ Run the following to put a migration into your migrations folder.
 
     php artisan migrate:publish tlr/l4-auth
 
-This is the base minimum this exact user model needs to run properly. Feel free to add / modify anything in this copied file to suit your application.
+This is the bare minimum this exact user model needs to run properly. Feel free to add / modify anything in this copied file to suit your application.
 
 #### Passwords
 
@@ -85,3 +90,5 @@ $user->can(['users', 'articles']); // => false
 $user->can(['users', 'pages']); // => true
 $user->can(['users', 'articles']); // => true
 ```
+
+There is a global helper function, `can`, that will test permissions on the currently logged in user, returning false if no user is logged in.

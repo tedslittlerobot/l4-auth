@@ -8,7 +8,7 @@ use URL;
 use View;
 use I18n\Territory;
 
-class SignupController extends Controller {
+class RegistrationController extends Controller {
 
 	public function __construct( RegistrationRepository $repo )
 	{

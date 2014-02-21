@@ -28,7 +28,8 @@
     "autoload": {
         "psr-4": {
             "Tlr\\Auth\\": "src/classes/"
-        }
+        },
+        "files": ["src/functions.php"]
     },
     "minimum-stability": "stable",
     "require-dev": {
