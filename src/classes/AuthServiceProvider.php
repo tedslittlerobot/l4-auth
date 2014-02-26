@@ -85,17 +85,22 @@ class AuthServiceProvider extends ServiceProvider {
 		{
 			$router->group( [ 'before' => 'guest' ], function () use ( $router, $events )
 			{
-				$events->fire('routes.public', array( $router ));
+				$events->fire('routes.public', array( $router, $events ));
 			} );
 
 			$router->group( ['before' => 'auth'], function() use ( $router, $events )
 			{
-				$events->fire('routes.private', array( $router ));
+				$events->fire('routes.private', array( $router, $events ));
 
-				$router->group( ['prefix' => 'admin'], function() use ( $router, $events )
-				{
-					$events->fire('routes.admin', array( $router ));
-				} );
+				$events->fire('routes.admin-prefix', array( $router, $events ));
+			} );
+		});
+
+		$events->listen('routes.admin-prefix', function($router, $events)
+		{
+			$router->group( ['prefix' => 'admin'], function() use ( $router, $events )
+			{
+				$events->fire('routes.admin', array( $router, $events ));
 			} );
 		});
 
