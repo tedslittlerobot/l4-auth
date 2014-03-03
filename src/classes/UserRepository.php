@@ -30,7 +30,7 @@ class UserRepository extends Repository {
 	{
 		$this->model->fill( $this->data() );
 
-		$this->assignIfExists( [ 'email', 'password', 'permissions' ] );
+		$this->assign( [ 'email', 'password', 'permissions' ] );
 	}
 
 	/**
