@@ -50,6 +50,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	/**
+	 * Check if the user is a ninja
+	 * @return boolean
+	 */
+	public function isNinja()
+	{
+		if ( in_array(Auth::NINJA, $this->permissions) )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Decode permissions from json
 	 * @param  string   $permissions
 	 * @return array
