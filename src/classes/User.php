@@ -1,12 +1,56 @@
 <?php namespace Tlr\Auth;
 
-use Tlr\Auth\AuthFacade as Auth;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
+
+	/*
+	|--------------------------------------------------------------------------
+	| Auth Levels
+	|--------------------------------------------------------------------------
+	|
+	| Define some constants for auth levels. To macro constants together use
+	| public static properties.
+	|
+	*/
+
+	/**
+	 * The ninja can get by all auth checks. They are to be feared.
+	 * Wisdom: 13
+	 * Dexterity: 13
+	 * Charisma: n/a (has never been seen)
+	 */
+	const NINJA = 'ninja';
+
+	/**
+	 * An array of permissions
+	 * @var array
+	 */
+	public static $PERMISSIONS = [
+
+		/**
+		 * The admin can do is view the admin screen - this is the most basic administration
+		 * privilege.
+		 * Wisdom: 2
+		 * Dexterity: 1
+		 * Charisma: 5
+		 */
+		'admin',
+
+		/**
+		 * The user manager is one who holds the life of the users in their hands. They alone
+		 * are the gatekeepers both in and out membership.
+		 * permission.
+		 * Wisdom: 9
+		 * Dexterity: 2
+		 * Charisma: 3
+		 */
+		'manage-users',
+
+	];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -55,7 +99,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function isNinja()
 	{
-		if ( in_array(Auth::NINJA, $this->permissions) )
+		if ( in_array(self::NINJA, $this->permissions) )
 		{
 			return true;
 		}
@@ -127,7 +171,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	/**
-	 * Sync permissions. If the second argument is null or omitted, Auth::$_PERMISSIONS
+	 * Sync permissions. If the second argument is null or omitted, self::$PERMISSIONS
 	 * will be used
 	 * @param  string|array $input            The permissions to allow
 	 * @param  array        $allPermissions   The list of all permissions
@@ -137,7 +181,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		if ( is_null($allPermissions) )
 		{
-			$allPermissions = Auth::$_PERMISSIONS;
+			$allPermissions = self::$PERMISSIONS;
 		}
 
 		$permissions = [];
@@ -233,5 +277,4 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
-
 }

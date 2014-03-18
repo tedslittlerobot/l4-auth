@@ -68,7 +68,7 @@ $user->addPermission(['add-users', 'accept-payments']); // This user can now add
 $user->denyPermission('add-users'); // This user can no longer add users. Like the addPermission method, this can take an array of permissions to deny
 ```
 
-To keep track of any auth permissions that may be added, there is an array, Auth::$_LEVELS, where you can store them as and when you create them.
+To keep track of any auth permissions that may be added, there is an array, User::$PERMISSIONS, where you can store them as and when you create them.
 
 ###### Ninjas
 
@@ -76,7 +76,7 @@ There is a secret permission, `ninja`. A user with the ninja permission will aut
 
 ###### Sync Permissions
 
-Finally, there is also a `syncPermissions` method, that takes a list of permissions you want the user to have, and syncs it with the Auth::$_LEVELS array, preserving the 'ninja' permission. This is one to use, for example, if you have a user management form, that loops over the $_LEVELS array. You can pass the checked inputs into this to sync them.
+Finally, there is also a `syncPermissions` method, that takes a list of permissions you want the user to have, and syncs it with the User::$PERMISSIONS array, preserving the 'ninja' permission. This is one to use, for example, if you have a user management form, that loops over the $PERMISSIONS array. You can pass the checked inputs into this to sync them.
 
 #### Auth Checking
 
