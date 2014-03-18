@@ -28,7 +28,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	public function can( $permissions, $strict = true )
 	{
-		if ( in_array(Auth::NINJA, $this->permissions) ) return true;
+		if ( $this->isNinja() ) return true;
 
 		$userPermissions = $this->permissions;
 
@@ -150,7 +150,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			}
 		}
 
-		if ( in_array(Auth::NINJA, $this->permissions) )
+		if ( $this->isNinja() )
 		{
 			$permissions[] = 'ninja';
 		}
