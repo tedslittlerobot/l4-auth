@@ -20,7 +20,7 @@ class UserMakeCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Make a new roche user';
+	protected $description = 'Make a new user';
 
 	/**
 	 * Create a new command instance.
