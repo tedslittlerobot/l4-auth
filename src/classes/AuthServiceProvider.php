@@ -104,7 +104,17 @@ class AuthServiceProvider extends ServiceProvider {
 			} );
 		});
 
-		$events->listen('routes.public', function( $router )
+		$events->listen('routes.public', function( $router, $events )
+		{
+			$events->fire('routes.login-prefix', array( $router, $events ) );
+		});
+
+		$events->listen('routes.login-prefix', function($router, $events)
+		{
+			$events->fire('routes.login', array( $router, $events ));
+		});
+
+		$events->listen('routes.login', function($router, $events)
 		{
 			$router->get('log/me/in', [ 'as' => 'login', 'uses' => 'Tlr\Auth\LoginController@loginForm' ]);
 			$router->post('i/am/important', [ 'as' => 'login.attempt', 'uses' => 'Tlr\Auth\LoginController@login', 'before' => 'csrf' ]);
